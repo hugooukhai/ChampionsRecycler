@@ -30,11 +30,9 @@ public class Champion {
 
     public static ArrayList<String> createListOfChamps(){
 
-
+                Log.d("CreateList", "Created");
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url("https://euw1.api.riotgames.com/lol/static-data/v3/champions?dataById=true&api_key=RGAPI-c403c4b2-58d9-42b3-a9a9-e22189cf3584").build();
-                Type type = new TypeToken<Map<String,Champion>>(){}.getType();
-                Map<String,Champion> map;
                 Gson gson = new Gson();
                 try {
                     Response response = client.newCall(request).execute();
@@ -48,8 +46,10 @@ public class Champion {
 //                        }
 //                    }
                     //JSONObject champsJson = new JSONObject(response.body().string()).getJSONObject("data");
-                    for(String key: champions){
-                        Log.d("Champion ", key);
+
+
+                    for(String key : championResponse.data.keySet()){
+                        champions.add(championResponse.data.get(key).key);
                     }
                     return champions;
 
@@ -57,5 +57,9 @@ public class Champion {
                     e.printStackTrace();
                 }
        return null;
+    }
+
+    public String getKey(){
+        return this.key;
     }
 }
