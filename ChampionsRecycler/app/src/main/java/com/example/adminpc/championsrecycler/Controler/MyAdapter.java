@@ -1,11 +1,14 @@
 package com.example.adminpc.championsrecycler.Controler;
 
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.adminpc.championsrecycler.R;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
@@ -21,8 +24,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
+        public ImageView mTextView;
+        public ViewHolder(ImageView v) {
             super(v);
             mTextView = v;
         }
@@ -38,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        ImageView v = (ImageView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_text_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
@@ -51,8 +54,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position));
-
+        //holder.mTextView.setImageBitmap(mDataset.get(position));
+        Ion.with(holder.mTextView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
     }
 
     // Return the size of your dataset (invoked by the layout manager)
