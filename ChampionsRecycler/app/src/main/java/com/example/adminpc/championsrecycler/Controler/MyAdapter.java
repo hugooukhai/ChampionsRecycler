@@ -1,7 +1,6 @@
 package com.example.adminpc.championsrecycler.Controler;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public ImageView mImageView;
         public TextView mTextView;
@@ -33,6 +32,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             super(v);
             mImageView = (ImageView) v.findViewById(R.id.champView);
             mTextView = (TextView) v.findViewById(R.id.cptTV);
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Picasso.with(ChampionRecyclerApplication.getContext()).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(getAdapterPosition())+"_1.jpg").into(mImageView);
+
+                }
+            });
         }
     }
 
@@ -51,6 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -64,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso.with(ChampionRecyclerApplication.getContext()).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg").into(holder.mImageView);
 
         holder.mTextView.setText(""+position + mDataset.get(position));
-        Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
+        //Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
     }
 
     // Return the size of your dataset (invoked by the layout manager)
