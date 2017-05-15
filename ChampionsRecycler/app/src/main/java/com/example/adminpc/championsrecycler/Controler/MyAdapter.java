@@ -1,8 +1,9 @@
 package com.example.adminpc.championsrecycler.Controler;
 
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,10 +25,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public ImageView mTextView;
-        public ViewHolder(ImageView v) {
+        public ImageView mImageView;
+        public TextView mTextView;
+
+        public ViewHolder(View v) {
             super(v);
-            mTextView = v;
+            mImageView = (ImageView) v.findViewById(R.id.champView);
+            mTextView = (TextView) v.findViewById(R.id.cptTV);
         }
     }
 
@@ -41,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        ImageView v = (ImageView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_text_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
@@ -54,8 +58,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        //holder.mTextView.setImageBitmap(mDataset.get(position));
-        Ion.with(holder.mTextView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
+        //holder.mImageView.setImageBitmap(mDataset.get(position));
+        Ion.with(holder.mImageView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
+        holder.mTextView.setText(""+position + mDataset.get(position));
+        Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
     }
 
     // Return the size of your dataset (invoked by the layout manager)
