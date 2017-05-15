@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.adminpc.championsrecycler.ChampionRecyclerApplication;
 import com.example.adminpc.championsrecycler.R;
-import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -59,7 +60,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         //holder.mImageView.setImageBitmap(mDataset.get(position));
-        Ion.with(holder.mImageView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
+        //Ion.with(holder.mImageView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
+        Picasso.with(ChampionRecyclerApplication.getContext()).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg").into(holder.mImageView);
+
         holder.mTextView.setText(""+position + mDataset.get(position));
         Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
     }
