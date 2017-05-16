@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
+    private String pattern;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -45,6 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(ArrayList<String> myDataset) {
         mDataset = myDataset;
+        pattern = "";
     }
 
     // Create new views (invoked by the layout manager)
@@ -68,9 +70,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         //holder.mImageView.setImageBitmap(mDataset.get(position));
         //Ion.with(holder.mImageView).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
-        Picasso.with(ChampionRecyclerApplication.getContext()).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg").into(holder.mImageView);
+        if(mDataset.get(position).contains(pattern)) {
+            Picasso.with(ChampionRecyclerApplication.getContext()).load("http://ddragon.leagueoflegends.com/cdn/img/champion/loading/" + mDataset.get(position) + "_0.jpg").into(holder.mImageView);
+            holder.mTextView.setText(mDataset.get(position));
+            holder.mImageView.setVisibility(View.VISIBLE);
+            holder.mTextView.setVisibility(View.VISIBLE);
+        }else{
+            holder.mImageView.setVisibility(View.GONE);
+            holder.mTextView.setVisibility(View.GONE);
+        }
 
-        holder.mTextView.setText(""+position + mDataset.get(position));
         //Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
     }
 
@@ -79,5 +88,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return mDataset.size();
     }
+
+   public void setPattern(String pattern){
+       this.pattern = pattern;
+   }
 }
 

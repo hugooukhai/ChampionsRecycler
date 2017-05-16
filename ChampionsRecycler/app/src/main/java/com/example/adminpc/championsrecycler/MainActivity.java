@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.example.adminpc.championsrecycler.Controler.MyAdapter;
@@ -17,10 +16,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     ArrayList<String> champlist;
     private EditText mSearchbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +41,51 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mAdapter.setPattern(s.toString());
+                mAdapter.notifyDataSetChanged();
+//                int position = 0;
+//                for(String nom:champlist){
+//                    if(s.length()>0){
+//                        if(s.length()> start) {
+//                            if(nom.length() > start) {
+//                                if (nom.contains(s)) {
+//                                    Log.d("Searched", nom);
+//                                    Log.d("charstart", "" + start + " : " + s.charAt(start));
+//                                    Log.d("charbefore", "" + before + " : " + s.charAt(before));
+//                                     Log.d("charcount", "" + count);
+//                                    if(mRecyclerView.getChildAt(position) != null){
+//                                        mRecyclerView.getChildAt(position).setVisibility(View.VISIBLE);
+//                                    }
+//
+//                                }else{
+//                                    if(mRecyclerView.getChildAt(position) != null) {
+//                                        mRecyclerView.getChildAt(position).setVisibility(View.GONE);
+//                                    }
+//                                }
+//                            }else{
+//                                if(mRecyclerView.getChildAt(position) != null) {
+//                                    mRecyclerView.getChildAt(position).setVisibility(View.GONE);
+//                                }
+//                            }
+//                        }else{
+//                            if(mRecyclerView.getChildAt(position) != null) {
+//                                mRecyclerView.getChildAt(position).setVisibility(View.GONE);
+//                            }
+//                        }
+//
+//                    }else{
+//                        if(mRecyclerView.getChildAt(position) != null) {
+//                            mRecyclerView.getChildAt(position).setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                    position++;
+//                }
 
-                for(String nom:champlist){
-                    char[] nomChar =  nom.toCharArray();
-                    if(s.length()>=1) {
-                        if (nomChar[start] == s.charAt(start)) {
-                            Log.d("Searched", nom);
-                        }
-                    }
-                }
+
+
             }
+
+
 
             @Override
             public void afterTextChanged(Editable s) {
