@@ -1,5 +1,6 @@
 package com.example.adminpc.championsrecycler.Controler;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,11 +29,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // each data item is just a string in this case
         public ImageView mImageView;
         public TextView mTextView;
+        public CardView mCardView;
+        public View mRootView;
 
         public ViewHolder(View v) {
             super(v);
+            mRootView = v;
             mImageView = (ImageView) v.findViewById(R.id.champView);
             mTextView = (TextView) v.findViewById(R.id.cptTV);
+            mCardView = (CardView) v.findViewById(R.id.card_view);
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -55,7 +60,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                                                    int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+                .inflate(R.layout.my_card_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
@@ -75,9 +80,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             holder.mTextView.setText(mDataset.get(position));
             holder.mImageView.setVisibility(View.VISIBLE);
             holder.mTextView.setVisibility(View.VISIBLE);
+            holder.mCardView.setVisibility(View.VISIBLE);
+            holder.mRootView.setVisibility(View.VISIBLE);
         }else{
             holder.mImageView.setVisibility(View.GONE);
             holder.mTextView.setVisibility(View.GONE);
+            holder.mCardView.setVisibility(View.GONE);
+            holder.mRootView.setVisibility(View.GONE);
         }
 
         //Log.d("Champ", ""+position+ "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+mDataset.get(position)+"_0.jpg");
